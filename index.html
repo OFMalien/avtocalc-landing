@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Max AI Labs - Професійний калькулятор авто для бізнесу</title>
+<meta name="description" content="Готовий IT-інструмент для автоімпортерів: калькулятор розмитнення 2026 з автокурсом НБУ та Telegram-бот, які приймають заявки 24/7. Під вашим брендом, запуск за 1-2 дні.">
+<meta name="theme-color" content="#09090b">
+
+<!-- Favicon SVG -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23F59E0B%22/><text x=%2250%22 y=%2274%22 font-family=%22Arial, sans-serif%22 font-weight=%22900%22 font-size=%2268%22 fill=%22%23120E08%22 text-anchor=%22middle%22>M</text></svg>">
+
+<!-- Fonts: Plus Jakarta Sans & JetBrains Mono -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #0d0c0a;
+    --bg-subtle: #141210;
+    --surface: rgba(22, 20, 18, 0.78);
+    --surface-2: rgba(34, 30, 26, 0.85);
+    --surface-hover: rgba(45, 40, 34, 0.9);
+    --line: rgba(245, 158, 11, 0.12);
+    --line-strong: rgba(245, 158, 11, 0.28);
+    --accent: #F59E0B;
+    --accent-hover: #D97706;
+    --accent-warm: #FB923C;
+    --text: #FAFAF9;
+    --text-muted: #A8A29E;
+    --text-faint: #78716C;
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    --nav-height: 68px;
+    --font-main: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  /* Reset & Base */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; color-scheme: dark; }
+  body {
+    font-family: var(--font-main);
+    background-color: var(--bg);
+    background-image: linear-gradient(180deg, rgba(13, 12, 10, 0.45) 0%, rgba(13, 12, 10, 0.7) 40%, rgba(13, 12, 10, 0.95) 100%), url('bg_porsche.jpg');
+    background-position: center top;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    color: var(--text);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection { background: rgba(245, 158, 11, 0.35); color: #fff; }
+  a { color: inherit; text-decoration: none; }
+  button, input, select { font-family: inherit; }
+
+  .wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* Typography Utilities */
+  h1, h2, h3, h4 {
+    letter-spacing: -0.035em;
+    font-weight: 800;
+    line-height: 1.15;
+    color: #FFFFFF;
+  }
+  .mono { font-family: var(--font-mono); }
+
+  /* Eyebrow / Tag */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: rgba(245, 158, 11, 0.12);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    border-radius: 9999px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: -0.01em;
+    margin-bottom: 20px;
+    backdrop-filter: blur(12px);
+  }
+  .eyebrow .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    border-radius: var(--radius-md);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #F59E0B, #EA580C);
+    color: #120E08;
+    font-weight: 800;
+    box-shadow: 0 2px 10px rgba(245, 158, 11, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #FBBF24, #F97316);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
+    color: #000;
+  }
+  .btn-secondary {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text);
+    border: 1px solid var(--line);
+  }
+  .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: var(--line-strong);
+    color: #FFFFFF;
+  }
+  .btn-lg { padding: 16px 32px; font-size: 16px; }
+
+  /* Navigation */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--nav-height);
+    background: rgba(13, 12, 10, 0.75);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: 1px solid var(--line);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #FAFAF9;
+  }
+  .logo-icon {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, #F59E0B, #EA580C);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #120E08;
+    font-weight: 900;
+    font-size: 16px;
+    box-shadow: 0 2px 10px rgba(245, 158, 11, 0.35);
+  }
+  .nav-socials {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    transition: all 0.2s;
+  }
+  .social-link:hover {
+    color: #FAFAF9;
+    border-color: var(--line-strong);
+    background: rgba(255, 255, 255, 0.09);
+  }
+  .social-link svg { width: 16px; height: 16px; fill: currentColor; }
+  .social-link.icon-only { padding: 8px 10px; }
+
+  /* Epic Hero Section */
+  .hero-sec {
+    position: relative;
+    padding: 150px 0 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .hero-title {
+    font-size: clamp(38px, 5.5vw, 68px);
+    line-height: 1.08;
+    margin-bottom: 20px;
+    text-shadow: 0 4px 30px rgba(0,0,0,0.9);
+  }
+  .hero-title span {
+    background: linear-gradient(135deg, #FBBF24, #FB923C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero-sub {
+    font-size: clamp(15px, 1.8vw, 19px);
+    color: #E7E5E4;
+    line-height: 1.5;
+    max-width: 720px;
+    margin: 0 auto 20px;
+    text-shadow: 0 2px 14px rgba(0,0,0,0.9);
+  }
+
+  /* Live Demo Box */
+  .demo-wrapper {
+    position: relative;
+    z-index: 10;
+    margin-top: 10px;
+    margin-bottom: 70px;
+  }
+  .calc-container {
+    background: var(--surface);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-xl);
+    padding: 32px;
+    box-shadow: 0 32px 64px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(245, 158, 11, 0.1);
+  }
+  .calc-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    margin-bottom: 28px;
+    border-bottom: 1px solid var(--line);
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .calc-badge-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: rgba(245, 158, 11, 0.12);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    border-radius: 9999px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #FBBF24;
+    font-family: var(--font-mono);
+  }
+  .calc-badge-live .live-pulse {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #F59E0B;
+    box-shadow: 0 0 8px #F59E0B;
+  }
+  .calc-rate-info {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+  }
+
+  .calc-layout {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 36px;
+    align-items: start;
+    text-align: left;
+  }
+
+  /* Form Elements */
+  .calc-form-box { display: flex; flex-direction: column; gap: 20px; }
+  .form-group { display: flex; flex-direction: column; gap: 8px; }
+  .form-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .seg-control {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    background: rgba(0,0,0,0.3);
+    padding: 4px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--line);
+  }
+  .seg-btn {
+    padding: 10px 4px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-muted);
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-align: center;
+  }
+  .seg-btn:hover { color: #fff; }
+  .seg-btn.active {
+    background: var(--surface-2);
+    color: #fff;
+    border: 1px solid var(--line-strong);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  }
+
+  .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .input-control {
+    width: 100%;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    font-size: 15px;
+    color: #fff;
+    font-family: var(--font-mono);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .input-control:focus { border-color: var(--accent); }
+  select.input-control {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A1A1AA' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 16px;
+  }
+
+  /* Result Breakdown Box */
+  .calc-summary-box {
+    background: rgba(0,0,0,0.4);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .summary-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+  }
+  .summary-header h3 { font-size: 16px; font-weight: 700; color: #fff; }
+  .summary-header span { font-size: 12px; color: var(--text-faint); font-family: var(--font-mono); }
+  .breakdown-table { display: flex; flex-direction: column; gap: 8px; }
+  .breakdown-row { display: flex; justify-content: space-between; font-size: 13px; padding: 4px 0; color: var(--text-secondary); }
+  .breakdown-row.highlight { color: #fff; font-weight: 600; padding-top: 6px; border-top: 1px dashed var(--line); }
+  .breakdown-row .row-val { font-family: var(--font-mono); font-weight: 600; color: #FFFFFF; }
+
+  .total-card {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(234, 88, 12, 0.1));
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    border-radius: var(--radius-md);
+    padding: 18px 20px;
+    margin-top: 6px;
+  }
+  .total-row { display: flex; align-items: baseline; justify-content: space-between; }
+  .total-label { font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: #FBBF24; }
+  .total-num-usd { font-family: var(--font-mono); font-size: 28px; font-weight: 800; color: #FFFFFF; }
+  .total-num-uah { font-family: var(--font-mono); font-size: 13px; color: var(--text-muted); text-align: right; margin-top: 4px; }
+
+  /* Telegram Lead Simulator Mockup - inside Left Box */
+  .tg-mockup-wrapper {
+    margin-top: 6px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+    text-align: left;
+  }
+  .tg-mockup-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .tg-mockup-header span.tg-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #229ED9;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 11px;
+  }
+  .tg-bubble {
+    background: rgba(26, 22, 18, 0.95);
+    border: 1px solid rgba(245, 158, 11, 0.25);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+  }
+  .tg-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; font-size: 12px; color: #5ea8e8; font-weight: 700; }
+  .tg-text { font-family: var(--font-mono); font-size: 12px; line-height: 1.55; color: #F5F5F4; white-space: pre-line; }
+
+  @media (max-width: 900px) {
+    .calc-layout { grid-template-columns: 1fr; }
+    .seg-control { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* Compact Pricing & Action */
+  .action-sec { padding: 40px 0 100px; }
+  .sec-head { text-align: center; max-width: 680px; margin: 0 auto 40px; }
+  .sec-title { font-size: clamp(28px, 4vw, 42px); margin-bottom: 12px; }
+
+  .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .pricing-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+  }
+  .pricing-card.featured {
+    background: linear-gradient(180deg, rgba(245, 158, 11, 0.08) 0%, var(--surface) 100%);
+    border-color: rgba(245, 158, 11, 0.5);
+    box-shadow: 0 16px 48px rgba(245, 158, 11, 0.12);
+  }
+  .plan-name { font-size: 20px; font-weight: 800; margin-bottom: 6px; }
+  .plan-desc { font-size: 13px; color: var(--text-muted); min-height: 38px; margin-bottom: 24px; }
+  .plan-price { font-family: var(--font-mono); font-size: 40px; font-weight: 800; color: #FFFFFF; margin-bottom: 24px; }
+  .plan-price span { font-size: 14px; font-weight: 500; color: var(--text-muted); }
+  .prepay-notice { font-size: 12px; color: var(--text-faint); text-align: center; margin-top: 14px; }
+
+  @media (max-width: 860px) { .pricing-grid { grid-template-columns: 1fr; } }
+
+  /* Compact FAQ Footer */
+  footer {
+    padding: 60px 0 40px;
+    border-top: 1px solid var(--line);
+    background: var(--surface);
+  }
+  .faq-compact { max-width: 800px; margin: 0 auto 40px; }
+  .faq-compact h3 { text-align: center; font-size: 20px; margin-bottom: 24px; color: var(--text-muted); }
+  .faq-item { border-bottom: 1px solid var(--line); padding: 16px 0; }
+  .faq-item summary { font-size: 14px; font-weight: 700; cursor: pointer; list-style: none; display: flex; justify-content: space-between; }
+  .faq-item summary::after { content: "+"; color: var(--accent); }
+  .faq-item[open] summary::after { content: "−"; }
+  .faq-content { padding-top: 12px; font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+
+  .footer-bottom { text-align: center; font-size: 12px; color: var(--text-faint); margin-top: 40px; }
+
+  /* --- NEW STYLES: Trust Strip & Logistics --- */
+  .trust-strip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 24px 40px;
+    padding: 16px 0;
+    margin-bottom: 20px;
+    opacity: 0.8;
+  }
+  .trust-strip img {
+    height: 24px;
+    filter: grayscale(100%) contrast(200%) brightness(150%);
+    opacity: 0.6;
+    transition: all 0.3s;
+  }
+  .trust-strip img:hover {
+    filter: none;
+    opacity: 1;
+  }
+  .trust-text {
+    font-size: 11px;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+  }
+
+  .manifest-badge {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    background: rgba(255,255,255,0.03);
+    border: 1px dashed var(--line-strong);
+    padding: 4px 10px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .manifest-badge span { color: var(--accent); font-weight: 700; }
+
+  .auction-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .auction-tag {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background: rgba(0,0,0,0.5);
+    border: 1px solid var(--line);
+    color: var(--text-muted);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--font-mono);
+  }
+  .auction-tag.green { color: #4ADE80; border-color: rgba(74, 222, 128, 0.3); }
+
+  .logistics-stepper {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-faint);
+    margin: 16px 0;
+    padding: 12px 16px;
+    background: rgba(0,0,0,0.2);
+    border-radius: var(--radius-sm);
+    border: 1px dashed var(--line);
+    gap: 8px;
+  }
+  .step-item { display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; flex: 1; }
+  .step-icon { color: var(--accent-warm); font-size: 14px; }
+  .step-line { flex-grow: 1; height: 1px; background: var(--line); margin: 0 4px; position: relative; top: 8px; }
+
+  .customs-stamp {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    border: 2px solid rgba(245, 158, 11, 0.2);
+    color: rgba(245, 158, 11, 0.4);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 800;
+    padding: 4px 8px;
+    transform: rotate(15deg);
+    border-radius: 4px;
+    letter-spacing: 1px;
+    pointer-events: none;
+    z-index: 10;
+  }
+  .container-corner {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--line-strong);
+    opacity: 0.3;
+    pointer-events: none;
+  }
+  .cc-tl { top: 0; left: 0; border-right: none; border-bottom: none; border-top-left-radius: var(--radius-xl); }
+  .cc-tr { top: 0; right: 0; border-left: none; border-bottom: none; border-top-right-radius: var(--radius-xl); }
+  .cc-bl { bottom: 0; left: 0; border-right: none; border-top: none; border-bottom-left-radius: var(--radius-xl); }
+  .cc-br { bottom: 0; right: 0; border-left: none; border-top: none; border-bottom-right-radius: var(--radius-xl); }
+  /* ------------------------------------------- */
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="wrap nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">M</div>
+      <span>Max AI Labs</span>
+    </a>
+    <div class="nav-socials">
+      <a href="https://t.me/max_ai_labs" target="_blank" class="social-link icon-only" title="Telegram">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.12.03-1.99 1.27-5.62 3.72-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.05-.49-.83-.27-1.49-.42-1.43-.88.03-.24.37-.49 1.02-.75 3.98-1.73 6.64-2.88 7.97-3.45 3.79-1.63 4.58-1.91 5.09-1.92.11 0 .37.03.54.17.14.12.18.28.2.45-.02.07-.02.17-.03.27z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/max_ai_labs/" target="_blank" class="social-link icon-only" title="Instagram">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+      <a href="https://t.me/max_ai_labs" target="_blank" class="btn btn-primary" style="padding: 8px 18px; font-size: 13px;">Замовити</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- Hero Section -->
+  <section class="hero-sec">
+    <div class="wrap hero-content">
+      <div class="eyebrow"><span class="dot"></span>Готовий IT-інструмент для автобізнесу</div>
+      <h1 class="hero-title">Калькулятор вартості авто<br>зі США <span>під ключ</span></h1>
+      <p class="hero-sub">Готове рішення для автоімпортерів: точний розрахунок розмитнення 2026 та пряма генерація лідів у ваш Telegram. Запуск за 24 години.</p>
+    </div>
+  </section>
+
+  <!-- Trust Strip: Auction Authority -->
+  <div class="wrap trust-strip">
+    <div class="trust-text">Офіційні тарифи аукціонів:</div>
+    <!-- Simple text-based logos for Copart, IAAI, Manheim to avoid missing images -->
+    <div style="font-weight: 800; font-size: 26px; color: #fff; display: flex; align-items: center; gap: 4px; font-family: sans-serif;"><span style="color: #3B82F6;">C</span>opart</div>
+    <div style="font-weight: 800; font-size: 26px; color: #EF4444; font-style: italic; font-family: sans-serif;">IAAI</div>
+    <div style="font-weight: 800; font-size: 26px; color: #fff; font-family: serif; letter-spacing: -0.05em;">Manheim</div>
+  </div>
+
+  <!-- Interactive Demo Pulled Up -->
+  <div class="wrap demo-wrapper" id="demo">
+    <div class="calc-container" style="position: relative; overflow: hidden;">
+      <!-- Container Industrial Details -->
+      <div class="container-corner cc-tl"></div>
+      <div class="container-corner cc-tr"></div>
+      <div class="container-corner cc-bl"></div>
+      <div class="container-corner cc-br"></div>
+      
+      <div class="calc-top-bar">
+        <div class="calc-badge-live">
+          <span class="live-pulse"></span>Офіційний курс НБУ: USD <span id="rateUsdVal">44.70</span> ₴ · EUR <span id="rateEurVal">51.71</span> ₴
+        </div>
+        <div class="calc-rate-info" id="rateStatusText">Синхронізовано з сервером НБУ</div>
+        <div class="manifest-badge">
+          ROUTE: <span>US ➔ KLAIPEDA ➔ UA</span>
+        </div>
+      </div>
+
+      <div class="calc-layout">
+        <!-- Left: Input Controls -->
+        <div class="calc-form-box">
+          <div class="form-group">
+            <label class="form-label">Тип двигуна</label>
+            <div class="seg-control" id="engineSeg">
+              <button type="button" class="seg-btn active" data-engine="gasoline">⛽ Бензин</button>
+              <button type="button" class="seg-btn" data-engine="diesel">🛢 Дизель</button>
+              <button type="button" class="seg-btn" data-engine="hybrid">⚡ Гібрид</button>
+              <button type="button" class="seg-btn" data-engine="electric">🔋 Електро</button>
+            </div>
+          </div>
+
+          <div class="input-grid">
+            <div class="form-group" id="volGroup">
+              <label class="form-label" for="engineVol">Об'єм (см³)</label>
+              <input type="number" id="engineVol" class="input-control" value="2000" step="100">
+            </div>
+            <div class="form-group" id="kwhGroup" style="display: none;">
+              <label class="form-label" for="batteryKwh">Батарея (кВт·г)</label>
+              <input type="number" id="batteryKwh" class="input-control" value="75" step="1">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="carYear">Рік випуску</label>
+              <select id="carYear" class="input-control"></select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="auctionBid">Ставка на аукціоні ($ USD)</label>
+            <div class="auction-tags">
+              <span class="auction-tag green"><span style="color:#4ADE80;">●</span> RUN & DRIVE</span>
+              <span class="auction-tag">📋 CLEAN TITLE</span>
+              <span class="auction-tag">🔑 KEYS: YES</span>
+            </div>
+            <input type="number" id="auctionBid" class="input-control" value="12000" step="500">
+          </div>
+
+          <!-- Telegram Lead Notification Simulator - Moved into the Left Column -->
+          <div class="tg-mockup-wrapper">
+            <div class="tg-mockup-header">
+              <span class="tg-icon">✈</span>Миттєва заявка менеджерам у Telegram:
+            </div>
+            <div class="tg-bubble">
+              <div class="tg-meta"><span>🤖 Бот-сповіщення</span><span class="mono">Щойно</span></div>
+              <div class="tg-text" id="tgPreviewText">🔥 Нова заявка з сайту!
+🚗 Авто: Бензин 2.0L, 2020 р.
+💵 Ставка аукціону: $12,000
+🏁 Підсумок «під ключ»: $24,121
+
+👤 Клієнт: Олександр
+📱 Телефон: +380 67 ••• •• ••</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Cost Breakdown & Total -->
+        <div class="calc-summary-box" style="position: relative;">
+          <div class="customs-stamp">CLEARED 2026<br>UA CUSTOMS</div>
+          <div class="summary-header">
+            <h3>Деталізація розрахунку «під ключ»</h3>
+            <span>2026 TARIFFS</span>
+          </div>
+
+          <div class="breakdown-table">
+            <div class="breakdown-row"><span>Ставка (bid)</span><span class="row-val" id="rowBid">$12,000</span></div>
+            <div class="breakdown-row"><span>Аукціонний збір (IAAI / Copart / Manheim)</span><span class="row-val" id="rowAuctionFee">$1,220</span></div>
+            <div class="breakdown-row"><span>Доставка по США та Океан</span><span class="row-val" id="rowLogistics">$1,700</span></div>
+            <div class="breakdown-row"><span>Експедирування та стоянки</span><span class="row-val" id="rowExpediting">$200</span></div>
+            <div class="breakdown-row highlight">
+              <span>Мито + Акциз + ПДВ 20%</span><span class="row-val" id="rowCustoms" style="color: #FBBF24;">$5,436</span>
+            </div>
+            <div class="breakdown-row"><span>Пенсійний фонд</span><span class="row-val" id="rowPension">$593</span></div>
+            <div class="breakdown-row"><span>Доставка в Україну + Сертифікат</span><span class="row-val" id="rowDeliveryUa">$1,050</span></div>
+            <div class="breakdown-row"><span>Брокерські послуги</span><span class="row-val" id="rowBroker">$900</span></div>
+            <div class="breakdown-row highlight">
+              <span>Ваша комісія</span><span class="row-val" id="rowCommission" style="color: #F59E0B;">$500</span>
+            </div>
+          </div>
+
+          <div class="logistics-stepper">
+            <div class="step-item"><span class="step-icon">🏛</span>US Auction</div>
+            <div class="step-line"></div>
+            <div class="step-item"><span class="step-icon">🚢</span>Ocean</div>
+            <div class="step-line"></div>
+            <div class="step-item"><span class="step-icon">🛂</span>UA Customs</div>
+          </div>
+
+          <div class="total-card">
+            <div class="total-row"><span class="total-label">Разом під ключ:</span><span class="total-num-usd" id="totalUsd">$24,121</span></div>
+            <div class="total-num-uah" id="totalUah">≈ 1,078,280 грн по курсу НБУ</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pricing -->
+  <section class="action-sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="sec-title">Готові інструменти продажів</h2>
+        <p style="color: var(--text-secondary);">Фіксована ціна за налаштування під ваші тарифи.</p>
+      </div>
+
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div>
+            <div class="plan-name">Telegram-бот</div>
+            <div class="plan-desc">Готовий бот під вашим юзернеймом. Запуск за 24 години.</div>
+            <div class="plan-price">$150 <span>/ разово</span></div>
+          </div>
+          <div>
+            <a href="https://t.me/max_ai_labs" target="_blank" class="btn btn-secondary" style="width: 100%;">Замовити</a>
+            <div class="prepay-notice">50% передплата до старту</div>
+          </div>
+        </div>
+
+        <div class="pricing-card featured">
+          <div>
+            <div class="plan-name">Комбо: Сайт + Бот</div>
+            <div class="plan-desc">Віджет на ваш сайт + Telegram-бот з єдиною синхронною логікою.</div>
+            <div class="plan-price">$350 <span>/ разово</span></div>
+          </div>
+          <div>
+            <a href="https://t.me/max_ai_labs" target="_blank" class="btn btn-primary" style="width: 100%;">Запустити Комбо</a>
+            <div class="prepay-notice">50% передплата до старту</div>
+          </div>
+        </div>
+
+        <div class="pricing-card">
+          <div>
+            <div class="plan-name">Виджет на сайт</div>
+            <div class="plan-desc">Вбудовується в будь-яку CMS (WordPress, Webflow, Tilda, HTML).</div>
+            <div class="plan-price">$250 <span>/ разово</span></div>
+          </div>
+          <div>
+            <a href="https://t.me/max_ai_labs" target="_blank" class="btn btn-secondary" style="width: 100%;">Замовити</a>
+            <div class="prepay-notice">50% передплата до старту</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="faq-compact">
+      <h3>Відповіді на запитання</h3>
+      <details class="faq-item"><summary>Формула точно на 2026 рік?</summary><div class="faq-content">Так, повністю враховано мито 10%, шкалу акцизу та ПДВ 20% для ДВС, гібридів та електро, плюс пенсійний збір.</div></details>
+      <details class="faq-item"><summary>Чи можна налаштувати свої комісії?</summary><div class="faq-content">Звісно. Ми зашиваємо у код ваші ціни на логістику, стоянку та послуги компанії.</div></details>
+      <details class="faq-item"><summary>Складно ставити на мій сайт?</summary><div class="faq-content">Ні, це займає 15 хвилин. Ви отримуєте один рядок коду для вставки (або ми ставимо його самі).</div></details>
+    </div>
+    <div class="footer-bottom">© 2026 Max AI Labs · Автоматизація для автобізнесу</div>
+  </div>
+</footer>
+
+<script>
+(function() {
+  let RATES = { usd: 44.703, eur: 51.096, live: false };
+  const CONSTANTS = { landUs: 500, sea: 1200, storageUs: 100, storageEu: 100, deliveryEuUa: 900, hazmatEv: 150, certification: 150, commission: 500, brokerFee: 900, customsAddon: 1600, pensionT1: 549120, pensionT2: 965120, iaaFixed: 190 };
+  const IAA_BUYER_ANCHORS = [[3000, 505], [7000, 755], [10000, 850], [15000, 900]];
+  const IAA_INTERNET_ANCHORS = [[3000, 110], [7000, 145], [10000, 160]];
+
+  const yearSelect = document.getElementById('carYear');
+  const currentYear = 2026;
+  for (let y = currentYear; y >= 2015; y--) {
+    const opt = document.createElement('option');
+    opt.value = y; opt.textContent = y;
+    if (y === 2020) opt.selected = true;
+    yearSelect.appendChild(opt);
+  }
+
+  function interp(anchors, x) {
+    if (x <= anchors[0][0]) return anchors[0][1];
+    if (x >= anchors[anchors.length - 1][0]) return anchors[anchors.length - 1][1];
+    for (let i = 0; i < anchors.length - 1; i++) {
+      const [x0, y0] = anchors[i], [x1, y1] = anchors[i + 1];
+      if (x >= x0 && x <= x1) return y0 + (y1 - y0) * (x - x0) / (x1 - x0);
+    }
+    return anchors[anchors.length - 1][1];
+  }
+
+  function recalculate() {
+    const bid = parseFloat(document.getElementById('auctionBid').value) || 0;
+    const vol = parseFloat(document.getElementById('engineVol').value) || 2000;
+    const kwh = parseFloat(document.getElementById('batteryKwh').value) || 75;
+    const year = parseInt(document.getElementById('carYear').value, 10) || 2020;
+    
+    let currentEngine = document.querySelector('.seg-btn.active').dataset.engine;
+
+    let buyerFee = bid >= 15000 ? bid * 0.06 : interp(IAA_BUYER_ANCHORS, bid);
+    let internetFee = interp(IAA_INTERNET_ANCHORS, bid);
+    const auctionFee = Math.round(buyerFee + internetFee + CONSTANTS.iaaFixed);
+
+    const cvUsd = bid + auctionFee + CONSTANTS.customsAddon;
+    
+    const cvUah = cvUsd * RATES.usd;
+    let dutyUah = 0, exciseUah = 0, vatUah = 0, pension = 0;
+    
+    if (currentEngine === 'electric') {
+      exciseUah = (kwh * 1.0) * RATES.eur;
+    } else {
+      dutyUah = 0.10 * cvUah;
+      const coef = Math.max(1, Math.min(15, currentYear - year - 1));
+      let baseEur = 50;
+      if (currentEngine === 'diesel') baseEur = vol <= 3500 ? 75 : 150;
+      else baseEur = vol <= 3000 ? 50 : 100;
+      exciseUah = baseEur * (vol / 1000.0) * coef * RATES.eur;
+    }
+    vatUah = 0.20 * (cvUah + dutyUah + exciseUah);
+    const customsUsd = (dutyUah + exciseUah + vatUah) / RATES.usd;
+
+    if (currentEngine !== 'electric') {
+      let pr = 0.03;
+      if (cvUah > CONSTANTS.pensionT2) pr = 0.05; else if (cvUah > CONSTANTS.pensionT1) pr = 0.04;
+      pension = cvUsd * pr;
+    }
+
+    const expediting = CONSTANTS.storageUs + CONSTANTS.storageEu;
+    const hazmat = (currentEngine === 'electric' || currentEngine === 'hybrid') ? CONSTANTS.hazmatEv : 0;
+    const deliveryUa = CONSTANTS.deliveryEuUa + CONSTANTS.certification;
+    const totalUsd = Math.round(bid + auctionFee + CONSTANTS.landUs + CONSTANTS.sea + expediting + hazmat + customsUsd + pension + deliveryUa + CONSTANTS.brokerFee + CONSTANTS.commission);
+
+    document.getElementById('rowBid').textContent = '$' + bid.toLocaleString();
+    document.getElementById('rowAuctionFee').textContent = '$' + auctionFee.toLocaleString();
+    document.getElementById('rowLogistics').textContent = '$' + (CONSTANTS.landUs + CONSTANTS.sea).toLocaleString();
+    document.getElementById('rowExpediting').textContent = '$' + expediting.toLocaleString();
+    document.getElementById('rowCustoms').textContent = '$' + Math.round(customsUsd).toLocaleString();
+    document.getElementById('rowPension').textContent = '$' + Math.round(pension).toLocaleString();
+    document.getElementById('rowDeliveryUa').textContent = '$' + deliveryUa.toLocaleString();
+    document.getElementById('rowBroker').textContent = '$' + CONSTANTS.brokerFee.toLocaleString();
+    document.getElementById('rowCommission').textContent = '$' + CONSTANTS.commission.toLocaleString();
+    
+    document.getElementById('totalUsd').textContent = '$' + totalUsd.toLocaleString();
+    document.getElementById('totalUah').textContent = '≈ ' + Math.round(totalUsd * RATES.usd).toLocaleString() + ' грн по курсу НБУ';
+
+    let engL = 'Бензин ' + (vol/1000).toFixed(1) + 'L';
+    if(currentEngine === 'diesel') engL = 'Дизель ' + (vol/1000).toFixed(1) + 'L';
+    if(currentEngine === 'electric') engL = 'Електро ' + kwh + ' кВт·г';
+    
+    document.getElementById('tgPreviewText').textContent = `🔥 Нова заявка з сайту!\n🚗 Авто: ${engL}, ${year} р.\n💵 Ставка аукціону: $${bid.toLocaleString()}\n🏁 Підсумок «під ключ»: $${totalUsd.toLocaleString()}\n\n👤 Клієнт: Олександр\n📱 Телефон: +380 67 ••• •• ••`;
+  }
+
+  document.querySelectorAll('.seg-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      let isEv = this.dataset.engine === 'electric';
+      document.getElementById('volGroup').style.display = isEv ? 'none' : 'flex';
+      document.getElementById('kwhGroup').style.display = isEv ? 'flex' : 'none';
+      recalculate();
+    });
+  });
+
+  ['auctionBid', 'engineVol', 'batteryKwh', 'carYear'].forEach(id => {
+    document.getElementById(id).addEventListener('input', recalculate);
+    document.getElementById(id).addEventListener('change', recalculate);
+  });
+
+  fetch('https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json')
+    .then(r => r.json()).then(data => {
+      const usdObj = data.find(i => i.cc === 'USD');
+      const eurObj = data.find(i => i.cc === 'EUR');
+      if (usdObj && eurObj) {
+        RATES.usd = parseFloat(usdObj.rate); RATES.eur = parseFloat(eurObj.rate);
+        document.getElementById('rateUsdVal').textContent = RATES.usd.toFixed(2);
+        document.getElementById('rateEurVal').textContent = RATES.eur.toFixed(2);
+        recalculate();
+      }
+    }).catch(recalculate);
+})();
+</script>
+</body>
+</html>
