@@ -3,39 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Max AI Labs - Професійний калькулятор авто для бізнесу</title>
+<title>Max AI Lab - Професійний калькулятор авто для бізнесу</title>
 <meta name="description" content="Готовий IT-інструмент для автоімпортерів: калькулятор розмитнення 2026 з автокурсом НБУ та Telegram-бот, які приймають заявки 24/7. Під вашим брендом, запуск за 1-2 дні.">
-<meta name="theme-color" content="#09090b">
+<meta name="theme-color" content="#1f2030">
 
-<!-- Favicon SVG -->
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23F59E0B%22/><text x=%2250%22 y=%2274%22 font-family=%22Arial, sans-serif%22 font-weight=%22900%22 font-size=%2268%22 fill=%22%23120E08%22 text-anchor=%22middle%22>M</text></svg>">
+<!-- Favicon -->
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="favicon-96.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-<!-- Fonts: Plus Jakarta Sans & JetBrains Mono -->
+<!-- Fonts: Manrope (как на основном сайте) и JetBrains Mono для цифр -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
   :root {
-    --bg: #0d0c0a;
-    --bg-subtle: #141210;
-    --surface: rgba(22, 20, 18, 0.78);
-    --surface-2: rgba(34, 30, 26, 0.85);
-    --surface-hover: rgba(45, 40, 34, 0.9);
-    --line: rgba(245, 158, 11, 0.12);
-    --line-strong: rgba(245, 158, 11, 0.28);
-    --accent: #F59E0B;
-    --accent-hover: #D97706;
-    --accent-warm: #FB923C;
-    --text: #FAFAF9;
-    --text-muted: #A8A29E;
-    --text-faint: #78716C;
+    --bg: #1f2030;
+    --bg-subtle: #23253a;
+    --surface: rgba(31, 32, 48, 0.78);
+    --surface-2: rgba(42, 47, 92, 0.6);
+    --surface-hover: rgba(42, 47, 92, 0.85);
+    --line: rgba(224, 112, 63, 0.12);
+    --line-strong: rgba(224, 112, 63, 0.28);
+    --accent: #e0703f;
+    --accent-hover: #c7562c;
+    --accent-warm: #e0703f;
+    --text: #f5f8fd;
+    --text-muted: #a9aec6;
+    --text-faint: #7e84a3;
     --radius-sm: 6px;
     --radius-md: 10px;
     --radius-lg: 16px;
     --radius-xl: 20px;
     --nav-height: 68px;
-    --font-main: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-main: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   }
 
@@ -45,7 +47,7 @@
   body {
     font-family: var(--font-main);
     background-color: var(--bg);
-    background-image: linear-gradient(180deg, rgba(13, 12, 10, 0.45) 0%, rgba(13, 12, 10, 0.7) 40%, rgba(13, 12, 10, 0.95) 100%), url('bg_porsche.jpg');
+    background-image: linear-gradient(180deg, rgba(31, 32, 48, 0.45) 0%, rgba(31, 32, 48, 0.7) 40%, rgba(31, 32, 48, 0.95) 100%), url('bg_porsche.jpg');
     background-position: center top;
     background-size: cover;
     background-attachment: fixed;
@@ -55,7 +57,7 @@
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
-  ::selection { background: rgba(245, 158, 11, 0.35); color: #fff; }
+  ::selection { background: rgba(224, 112, 63, 0.35); color: #fff; }
   a { color: inherit; text-decoration: none; }
   button, input, select { font-family: inherit; }
 
@@ -80,8 +82,8 @@
     align-items: center;
     gap: 8px;
     padding: 6px 14px;
-    background: rgba(245, 158, 11, 0.12);
-    border: 1px solid rgba(245, 158, 11, 0.3);
+    background: rgba(224, 112, 63, 0.12);
+    border: 1px solid rgba(224, 112, 63, 0.3);
     border-radius: 9999px;
     font-size: 13px;
     font-weight: 600;
@@ -115,15 +117,15 @@
     text-decoration: none;
   }
   .btn-primary {
-    background: linear-gradient(135deg, #F59E0B, #EA580C);
-    color: #120E08;
+    background: linear-gradient(135deg, #e0703f, #c7562c);
+    color: #1f2030;
     font-weight: 800;
-    box-shadow: 0 2px 10px rgba(245, 158, 11, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    box-shadow: 0 2px 10px rgba(224, 112, 63, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
   }
   .btn-primary:hover {
-    background: linear-gradient(135deg, #FBBF24, #F97316);
+    background: linear-gradient(135deg, #e0703f, #F97316);
     transform: translateY(-1px);
-    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
+    box-shadow: 0 6px 20px rgba(224, 112, 63, 0.5);
     color: #000;
   }
   .btn-secondary {
@@ -143,7 +145,7 @@
     position: fixed;
     top: 0; left: 0; right: 0;
     height: var(--nav-height);
-    background: rgba(13, 12, 10, 0.75);
+    background: rgba(31, 32, 48, 0.75);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
     border-bottom: 1px solid var(--line);
@@ -164,20 +166,7 @@
     font-size: 17px;
     font-weight: 800;
     letter-spacing: -0.03em;
-    color: #FAFAF9;
-  }
-  .logo-icon {
-    width: 32px;
-    height: 32px;
-    background: linear-gradient(135deg, #F59E0B, #EA580C);
-    border-radius: var(--radius-sm);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #120E08;
-    font-weight: 900;
-    font-size: 16px;
-    box-shadow: 0 2px 10px rgba(245, 158, 11, 0.35);
+    color: #f5f8fd;
   }
   .logo-mark { width: 32px; height: 32px; object-fit: contain; }
   .logo-wordmark { height: 17px; width: auto; }
@@ -205,7 +194,7 @@
     transition: all 0.2s;
   }
   .social-link:hover {
-    color: #FAFAF9;
+    color: #f5f8fd;
     border-color: var(--line-strong);
     background: rgba(255, 255, 255, 0.09);
   }
@@ -235,7 +224,7 @@
     text-shadow: 0 4px 30px rgba(0,0,0,0.9);
   }
   .hero-title span {
-    background: linear-gradient(135deg, #FBBF24, #FB923C);
+    background: linear-gradient(135deg, #e0703f, #e0703f);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -262,7 +251,7 @@
     border: 1px solid var(--line-strong);
     border-radius: var(--radius-xl);
     padding: 32px;
-    box-shadow: 0 32px 64px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(245, 158, 11, 0.1);
+    box-shadow: 0 32px 64px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(224, 112, 63, 0.1);
   }
   .calc-top-bar {
     display: flex;
@@ -279,20 +268,20 @@
     align-items: center;
     gap: 8px;
     padding: 6px 14px;
-    background: rgba(245, 158, 11, 0.12);
-    border: 1px solid rgba(245, 158, 11, 0.3);
+    background: rgba(224, 112, 63, 0.12);
+    border: 1px solid rgba(224, 112, 63, 0.3);
     border-radius: 9999px;
     font-size: 13px;
     font-weight: 600;
-    color: #FBBF24;
+    color: #e0703f;
     font-family: var(--font-mono);
   }
   .calc-badge-live .live-pulse {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: #F59E0B;
-    box-shadow: 0 0 8px #F59E0B;
+    background: #e0703f;
+    box-shadow: 0 0 8px #e0703f;
   }
   .calc-rate-info {
     font-size: 13px;
@@ -395,14 +384,14 @@
   .breakdown-row .row-val { font-family: var(--font-mono); font-weight: 600; color: #FFFFFF; }
 
   .total-card {
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(234, 88, 12, 0.1));
-    border: 1px solid rgba(245, 158, 11, 0.4);
+    background: linear-gradient(135deg, rgba(224, 112, 63, 0.15), rgba(199, 86, 44, 0.1));
+    border: 1px solid rgba(224, 112, 63, 0.4);
     border-radius: var(--radius-md);
     padding: 18px 20px;
     margin-top: 6px;
   }
   .total-row { display: flex; align-items: baseline; justify-content: space-between; }
-  .total-label { font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: #FBBF24; }
+  .total-label { font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: #e0703f; }
   .total-num-usd { font-family: var(--font-mono); font-size: 28px; font-weight: 800; color: #FFFFFF; }
   .total-num-uah { font-family: var(--font-mono); font-size: 13px; color: var(--text-muted); text-align: right; margin-top: 4px; }
 
@@ -436,8 +425,8 @@
     font-size: 11px;
   }
   .tg-bubble {
-    background: rgba(26, 22, 18, 0.95);
-    border: 1px solid rgba(245, 158, 11, 0.25);
+    background: rgba(31, 32, 48, 0.95);
+    border: 1px solid rgba(224, 112, 63, 0.25);
     border-radius: 12px;
     padding: 16px;
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
@@ -467,9 +456,9 @@
     position: relative;
   }
   .pricing-card.featured {
-    background: linear-gradient(180deg, rgba(245, 158, 11, 0.08) 0%, var(--surface) 100%);
-    border-color: rgba(245, 158, 11, 0.5);
-    box-shadow: 0 16px 48px rgba(245, 158, 11, 0.12);
+    background: linear-gradient(180deg, rgba(224, 112, 63, 0.08) 0%, var(--surface) 100%);
+    border-color: rgba(224, 112, 63, 0.5);
+    box-shadow: 0 16px 48px rgba(224, 112, 63, 0.12);
   }
   .plan-name { font-size: 20px; font-weight: 800; margin-bottom: 6px; }
   .plan-desc { font-size: 13px; color: var(--text-muted); min-height: 38px; margin-bottom: 24px; }
@@ -582,8 +571,8 @@
     position: absolute;
     right: 20px;
     top: 20px;
-    border: 2px solid rgba(245, 158, 11, 0.2);
-    color: rgba(245, 158, 11, 0.4);
+    border: 2px solid rgba(224, 112, 63, 0.2);
+    color: rgba(224, 112, 63, 0.4);
     font-family: var(--font-mono);
     font-size: 10px;
     font-weight: 800;
@@ -738,13 +727,13 @@
             <div class="breakdown-row"><span>Доставка по США та Океан</span><span class="row-val" id="rowLogistics">$1,700</span></div>
             <div class="breakdown-row"><span>Експедирування та стоянки</span><span class="row-val" id="rowExpediting">$200</span></div>
             <div class="breakdown-row highlight">
-              <span>Мито + Акциз + ПДВ 20%</span><span class="row-val" id="rowCustoms" style="color: #FBBF24;">$5,436</span>
+              <span>Мито + Акциз + ПДВ 20%</span><span class="row-val" id="rowCustoms" style="color: #e0703f;">$5,436</span>
             </div>
             <div class="breakdown-row"><span>Пенсійний фонд</span><span class="row-val" id="rowPension">$593</span></div>
             <div class="breakdown-row"><span>Доставка в Україну + Сертифікат</span><span class="row-val" id="rowDeliveryUa">$1,050</span></div>
             <div class="breakdown-row"><span>Брокерські послуги</span><span class="row-val" id="rowBroker">$900</span></div>
             <div class="breakdown-row highlight">
-              <span>Ваша комісія</span><span class="row-val" id="rowCommission" style="color: #F59E0B;">$500</span>
+              <span>Ваша комісія</span><span class="row-val" id="rowCommission" style="color: #e0703f;">$500</span>
             </div>
           </div>
 
@@ -823,7 +812,7 @@
       <details class="faq-item"><summary>Чи можна налаштувати свої комісії?</summary><div class="faq-content">Звісно. Ми зашиваємо у код ваші ціни на логістику, стоянку та послуги компанії.</div></details>
       <details class="faq-item"><summary>Складно ставити на мій сайт?</summary><div class="faq-content">Ні, це займає 15 хвилин. Ви отримуєте один рядок коду для вставки (або ми ставимо його самі).</div></details>
     </div>
-    <div class="footer-bottom">© 2026 Max AI Labs · Автоматизація для автобізнесу</div>
+    <div class="footer-bottom">© 2026 Max AI Lab · Автоматизація для автобізнесу</div>
   </div>
 </footer>
 
