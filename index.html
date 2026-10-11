@@ -7,6 +7,28 @@
 <meta name="description" content="Готовий IT-інструмент для автоімпортерів: калькулятор розмитнення 2026 з автокурсом НБУ та Telegram-бот, які приймають заявки 24/7. Під вашим брендом, запуск за 1-2 дні.">
 <meta name="theme-color" content="#1f2030">
 
+<!-- Карточка при пересылке в Telegram, Direct, Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Max AI Lab">
+<meta property="og:locale" content="uk_UA">
+<meta property="og:url" content="https://ofmalien.github.io/avtocalc-landing/">
+<meta property="og:title" content="Калькулятор вартості авто зі США під ключ | Max AI Lab">
+<meta property="og:description" content="Готовий IT-інструмент для автоімпортерів: калькулятор розмитнення 2026 з автокурсом НБУ та Telegram-бот, які приймають заявки. Під вашим брендом.">
+<meta property="og:image" content="https://ofmalien.github.io/avtocalc-landing/img/og-calculator.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Калькулятор вартості авто зі США під ключ, Max AI Lab">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Google tag (gtag.js) - GA4: Max AI Lab, тот же счётчик, что на основном сайте -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-THKPYSCG6Q"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-THKPYSCG6Q');
+</script>
+
 <!-- Favicon -->
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="96x96" href="favicon-96.png">
@@ -464,6 +486,9 @@
   .plan-desc { font-size: 13px; color: var(--text-muted); min-height: 38px; margin-bottom: 24px; }
   .plan-price { font-family: var(--font-mono); font-size: 40px; font-weight: 800; color: #FFFFFF; margin-bottom: 24px; }
   .plan-price span { font-size: 14px; font-weight: 500; color: var(--text-muted); }
+  .more-link { text-align: center; margin-top: 36px; font-size: 14px; }
+  .more-link a, .footer-bottom a { color: var(--accent); }
+  .more-link a:hover, .footer-bottom a:hover { color: var(--accent-hover); }
   .prepay-notice { font-size: 12px; color: var(--text-faint); text-align: center; margin-top: 14px; }
 
   @media (max-width: 860px) { .pricing-grid { grid-template-columns: 1fr; } }
@@ -603,18 +628,18 @@
 <!-- Header -->
 <header>
   <div class="wrap nav-inner">
-    <a href="#" class="logo" aria-label="Max AI Lab">
+    <a href="https://max-ai-lab.pages.dev/?utm_source=avtocalc&amp;utm_medium=landing&amp;utm_campaign=logo" class="logo" aria-label="Max AI Lab, основний сайт" data-track="main_site_click" data-label="logo">
       <img src="img/max-ai-lab-mark.webp" alt="" class="logo-mark" width="32" height="32">
       <img src="img/max-ai-lab-wordmark.webp" alt="Max AI Lab" class="logo-wordmark" height="17">
     </a>
     <div class="nav-socials">
-      <a href="https://t.me/max_ai_labs" target="_blank" class="social-link icon-only" title="Telegram">
+      <a href="https://t.me/max_ai_labs" target="_blank" class="social-link icon-only" title="Telegram" data-track="social_click" data-label="telegram">
         <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.12.03-1.99 1.27-5.62 3.72-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.05-.49-.83-.27-1.49-.42-1.43-.88.03-.24.37-.49 1.02-.75 3.98-1.73 6.64-2.88 7.97-3.45 3.79-1.63 4.58-1.91 5.09-1.92.11 0 .37.03.54.17.14.12.18.28.2.45-.02.07-.02.17-.03.27z"/></svg>
       </a>
-      <a href="https://www.instagram.com/max_ai_labs/" target="_blank" class="social-link icon-only" title="Instagram">
+      <a href="https://www.instagram.com/max_ai_labs/" target="_blank" class="social-link icon-only" title="Instagram" data-track="social_click" data-label="instagram">
         <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
       </a>
-      <a href="https://t.me/max_ai_labs" target="_blank" class="btn btn-primary" style="padding: 8px 18px; font-size: 13px;">Замовити</a>
+      <a href="https://t.me/max_ai_labs" target="_blank" class="btn btn-primary" style="padding: 8px 18px; font-size: 13px;" data-track="order_click" data-label="header">Замовити</a>
     </div>
   </div>
 </header>
@@ -770,7 +795,7 @@
             <div class="plan-price">$150 <span>/ разово</span></div>
           </div>
           <div>
-            <a href="https://t.me/max_ai_labs" target="_blank" class="btn btn-secondary" style="width: 100%;">Замовити</a>
+            <a href="https://t.me/max_ai_labs" target="_blank" class="btn btn-secondary" style="width: 100%;" data-track="order_click" data-label="bot">Замовити</a>
             <div class="prepay-notice">50% передплата до старту</div>
           </div>
         </div>
@@ -782,7 +807,7 @@
             <div class="plan-price">$350 <span>/ разово</span></div>
           </div>
           <div>
-            <a href="https://t.me/max_ai_labs" target="_blank" class="btn btn-primary" style="width: 100%;">Запустити Комбо</a>
+            <a href="https://t.me/max_ai_labs" target="_blank" class="btn btn-primary" style="width: 100%;" data-track="order_click" data-label="combo">Запустити Комбо</a>
             <div class="prepay-notice">50% передплата до старту</div>
           </div>
         </div>
@@ -794,11 +819,12 @@
             <div class="plan-price">$250 <span>/ разово</span></div>
           </div>
           <div>
-            <a href="https://t.me/max_ai_labs" target="_blank" class="btn btn-secondary" style="width: 100%;">Замовити</a>
+            <a href="https://t.me/max_ai_labs" target="_blank" class="btn btn-secondary" style="width: 100%;" data-track="order_click" data-label="widget">Замовити</a>
             <div class="prepay-notice">50% передплата до старту</div>
           </div>
         </div>
       </div>
+      <p class="more-link"><a href="https://max-ai-lab.pages.dev/?utm_source=avtocalc&amp;utm_medium=landing&amp;utm_campaign=pricing" data-track="main_site_click" data-label="pricing">Потрібне щось окрім калькулятора? Сайти, SEO, реклама та AI-агенти - на основному сайті Max AI Lab →</a></p>
     </div>
   </section>
 
@@ -812,10 +838,18 @@
       <details class="faq-item"><summary>Чи можна налаштувати свої комісії?</summary><div class="faq-content">Звісно. Ми зашиваємо у код ваші ціни на логістику, стоянку та послуги компанії.</div></details>
       <details class="faq-item"><summary>Складно ставити на мій сайт?</summary><div class="faq-content">Ні, це займає 15 хвилин. Ви отримуєте один рядок коду для вставки (або ми ставимо його самі).</div></details>
     </div>
-    <div class="footer-bottom">© 2026 Max AI Lab · Автоматизація для автобізнесу</div>
+    <div class="footer-bottom">© 2026 Max AI Lab · Автоматизація для автобізнесу · <a href="https://max-ai-lab.pages.dev/?utm_source=avtocalc&amp;utm_medium=landing&amp;utm_campaign=footer" data-track="main_site_click" data-label="footer">max-ai-lab.pages.dev</a></div>
   </div>
 </footer>
 
+<script>
+// Счётчик кликов: заказ по пакетам, переходы на основной сайт и в соцсети
+document.addEventListener('click', function (e) {
+  var a = e.target.closest && e.target.closest('a[data-track]');
+  if (!a) return;
+  gtag('event', a.getAttribute('data-track'), { link_label: a.getAttribute('data-label') || '', link_url: a.href, transport_type: 'beacon' });
+});
+</script>
 <script>
 (function() {
   let RATES = { usd: 44.703, eur: 51.096, live: false };
